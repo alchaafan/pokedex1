@@ -10,23 +10,18 @@ async function getData() {
     let loadMoreBtn = document.getElementById('loadMoreBtn');
     loadMoreBtn.disabled=true;
     loadMoreBtn.style.opacity = "0.5";
-
-
     document.getElementById('spinner').style.display='block';
     let response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=25&offset=${loadOffset}`);
     let responseToJson = await response.json();
     
 await render(responseToJson.results);
-
 document.getElementById('spinner').style.display='none';
 
 //mehr laden wird wieder aktiviert
 loadMoreBtn.disabled = false;
 loadMoreBtn.style.opacity = "1"
-
 loadOffset += limit;
 }
-
 
 //Ladeanimation bleibt eingeblendet, bis alle Daten geladen sind
 document.addEventListener("DOMContentLoaded", function() {
@@ -38,8 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //blindet den Inhalt ein
 async function render(pokemons) {
  let content = document.getElementById('content');
- pokemonList = [];
-
+ //pokemonList = [];
 
  for(let i=0; i <pokemons.length; i++) {
     const pokemon = pokemons[i];
@@ -54,9 +48,7 @@ async function render(pokemons) {
         if(t<pokemonJson.types.length -1) {
             types += ", ";
         }
-
     }
-
 
     pokemonList.push({
         img: pokemonJson.sprites.front_default,
@@ -115,14 +107,12 @@ function closeOverlay() {
     //verhindert das Skrollen, wenn das Overlay verwendet wird
     document.body.style.overflow="";
    }
-  
-
     overlayRef.removeEventListener('click', closeOverlay);
 }
 
 
 function prevPokemon() {
-    if(currentIndex >0) {
+    if(currentIndex > 0) {
         currentIndex--;
         updateOverlay();
     }
@@ -139,20 +129,22 @@ function nextPokemon() {
 
 function updateOverlay() {
     let pokemon = pokemonList[currentIndex];
-    openOverlay(pokemon.img, pokemon.name, pokemon.types, currentIndex);
+    document.getElementById('overlay-img').src = pokemon.img;
+    document.getElementById('overlay-name').innerHTML = pokemon.name.toUpperCase();
+    document.getElementById('overlay-type').innerHTML = pokemon.types;
+    document.getElementById('overlay-abilities').innerHTML = pokemon.abilities;
 }
 
 
 //mehr laden
 document.getElementById('loadMoreBtn').onclick = function() {
     getData()
-    
-    
 }
 
 
 //Suchfunktion
 document.getElementById('searchBox').addEventListener('input', function(){
+
     //groß oder klein geschrieben spielt keine Rolle
 let searchTerm = this.value.toLowerCase();
 let contentDiv = document.getElementById('content');
