@@ -54,6 +54,10 @@ header {
     height: 250px;
     margin: 20px;
     background-color: rgb(138, 122, 101);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pokemon-card:hover{
@@ -62,10 +66,10 @@ header {
 }
 
 .grass {
-    background-color: green;
+    background-color: rgb(102, 190, 102);
 }
 .water{
-    background-color: rgb(8, 8, 224);
+    background-color: rgb(137, 137, 250);
 }
 .fire {
     background-color: orange;
@@ -77,10 +81,10 @@ header {
     background-color: cadetblue;
 }
 .poison{
-    background-color: crimson;
+    background-color: rgb(165, 114, 124);
 }
 .electric{
-    background-color: yellow;
+    background-color: rgb(240, 240, 70);
 }
 
 
