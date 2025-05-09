@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="./img/pika.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="getData()">
+    <header>
+        
+        <h1>Pokedex <img src="./img/pok.png" alt="" id="pok"></h1>
+        
+        <input type="text" id="searchBox" placeholder="Pokemon suchen">
+        
+    </header>
+
+    <main>
+        <div id="overlay" class="overlay hide" onclick="closeOverlay()">
+            <button id="prevBtn" onclick="prevPokemon()"> ← </button>
+            <div class="overlay-content">
+                <img src="" alt="" id="overlay-img">
+                <h2 id="overlay-name"></h2>
+                <p id="overlay-type"></p>
+                <p id="overlay-abilities"></p>
+            </div>
+            <button id="nextBtn" onclick="nextPokemon()"> → </button>
+        </div>
+    
+        
+    <div id="content"></div>
+    <div id="spinner" class="spinner"></div>
+    <button onclick="getData()" id="loadMoreBtn">mehr laden</button>
+    </main>
+
+
+
+    <footer>
+         <p>Erstellt mit JavaScript · Daten von <a href="https://pokeapi.co" target="_blank">PokeAPI</a></p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
