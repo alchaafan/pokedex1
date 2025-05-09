@@ -85,7 +85,7 @@ async function render(pokemons) {
     onclick="openOverlay('${pokemonJson.sprites.front_default}', '${pokemon.name}', '${types}', ${i})">
      
      <img src="${pokemonJson.sprites.front_default}" alt="${pokemon.name}">
-    <h2 >${pokemon.name}</h2>
+    <h2 >${pokemon.name.toUpperCase()}</h2>
     <h3>${types}</h3>
      </div>`
  }
@@ -96,7 +96,7 @@ async function render(pokemons) {
 function openOverlay(imgSrc, name, type, index) {
     currentIndex = index; 
     document.getElementById('overlay-img').src = imgSrc;
-    document.getElementById('overlay-name').innerHTML=name;
+    document.getElementById('overlay-name').innerHTML=name.toUpperCase();
     document.getElementById('overlay-type').innerHTML=type;
     document.getElementById('overlay-abilities').innerHTML = pokemonList[index].abilities
     document.getElementById('overlay').classList.remove('hide');
