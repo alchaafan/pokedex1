@@ -22,6 +22,7 @@ loadMoreBtn.style.opacity = "1"
 loadOffset += limit;
 }
 
+
 //Ladeanimation bleibt eingeblendet, bis alle Daten geladen sind
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('spinner').style.display='block';
