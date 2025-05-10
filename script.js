@@ -1,5 +1,4 @@
 let loadOffset = 0;
-let limit = 25;
 let currentIndex = 0;
 let pokemonList = [];
 
@@ -26,7 +25,7 @@ loadOffset += limit;
 //Ladeanimation bleibt eingeblendet, bis alle Daten geladen sind
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('spinner').style.display='block';
-    getData()
+    //getData()
 });
 
 
