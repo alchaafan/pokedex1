@@ -1,4 +1,5 @@
 let loadOffset = 0;
+const limit = 25;
 let currentIndex = 0;
 let pokemonList = [];
 
@@ -26,14 +27,12 @@ loadOffset += limit;
 //Ladeanimation bleibt eingeblendet, bis alle Daten geladen sind
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('spinner').style.display='block';
-    //getData()
 });
 
 
 //blindet den Inhalt ein
 async function render(pokemons) {
  let content = document.getElementById('content');
- //pokemonList = [];
 
  for(let i=0; i <pokemons.length; i++) {
     const pokemon = pokemons[i];
@@ -149,25 +148,38 @@ document.getElementById('searchBox').addEventListener('input', function(){
 let searchTerm = this.value.toLowerCase();
 let contentDiv = document.getElementById('content');
 let pokemonCards = contentDiv.getElementsByClassName('pokemon-card');
+let noResults = document.getElementById('no-results');
+
+let found = 0;
 
 if(searchTerm.length == 0) {
     for(let i = 0; i < pokemonCards.length; i++) {
         pokemonCards[i].style.display = "block"
     }
+     noResults.classList.add('hide')
     return;
 }
 
 if(searchTerm.length < 3) {
+   noResults.classList.add('hide')
     return;
 }
+
 
 for (let i=0;  i < pokemonCards.length; i++) {
     let pokemonName = pokemonCards[i].querySelector('h2').innerText.toLowerCase();
     if (pokemonName.includes(searchTerm)) {
         pokemonCards[i].style.display="block";
+        found++;
     } else {
         pokemonCards[i].style.display="none";
     }
+}
+
+if(found ===0) {
+    noResults.classList.remove('hide')
+} else {
+    noResults.classList.add('hide')
 }
 });
 
