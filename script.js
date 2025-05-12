@@ -25,62 +25,75 @@ loadOffset += limit;
 
 
 //Ladeanimation bleibt eingeblendet, bis alle Daten geladen sind
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('spinner').style.display='block';
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById('loading-overlay').style.display = "flex"; 
+    document.body.style.overflow = "hidden"; 
+    getData().then(() => {
+        document.getElementById('loading-overlay').style.display = "none"; 
+        document.body.style.overflow = ""; 
+    });
+   
 });
 
 
 //blindet den Inhalt ein
 async function render(pokemons) {
- let content = document.getElementById('content');
+    let content = document.getElementById('content');
 
- for(let i=0; i <pokemons.length; i++) {
-    const pokemon = pokemons[i];
-    let pokemonDetails = await fetch(pokemon.url);
-    let pokemonJson = await pokemonDetails.json();
+    for (let i = 0; i < pokemons.length; i++) {
+        const pokemon = pokemons[i];
+        let pokemonDetails = await fetch(pokemon.url);
+        let pokemonJson = await pokemonDetails.json();
 
-        //Typ einblenden mit for Schleife
-    let types = "";
+        let types = "";
+        for (let t = 0; t < pokemonJson.types.length; t++) {
+            types += pokemonJson.types[t].type.name;
+            if (t < pokemonJson.types.length - 1) {
+                types += ", ";
+            }
+        }
 
-    for(let t=0; t <pokemonJson.types.length; t++) {
-        types += pokemonJson.types[t].type.name;
-        if(t<pokemonJson.types.length -1) {
-            types += ", ";
+        // Verhindere doppelte Pokémon (über die ID)
+        let alreadyExists = pokemonList.some(p => p.id === pokemonJson.id);
+        if (!alreadyExists) {
+            // Abilities extrahieren
+            let abilities = getAbilities(pokemonJson.abilities);
+
+            // Neues Pokémon in Liste speichern
+            pokemonList.push({
+                id: pokemonJson.id,
+                img: pokemonJson.sprites.front_default,
+                name: pokemon.name,
+                types: types,
+                abilities: abilities
+            });
+
+            // Dynamische CSS-Klasse
+            let typeClass = pokemonJson.types[0].type.name;
+
+            // Karte anhängen
+            content.innerHTML += `<div class="pokemon-card ${typeClass}"
+                onclick="openOverlay('${pokemonJson.sprites.front_default}', '${pokemon.name}', '${types}', ${pokemonList.length - 1})">
+                <img src="${pokemonJson.sprites.front_default}" alt="${pokemon.name}">
+                <h2><h3>#${pokemonJson.id} ${pokemon.name.toUpperCase()}</h2>
+                <h3>${types}</h3>
+            </div>`;
         }
     }
-
-    pokemonList.push({
-        img: pokemonJson.sprites.front_default,
-        name: pokemon.name,
-        types: types,
-        abilities: getAbilities(pokemonJson.abilities)
-    });
 
     function getAbilities(abilitiesArray) {
         let abilities = "";
 
-        for(let i = 0; i < abilitiesArray.length; i++) {
+        for (let i = 0; i < abilitiesArray.length; i++) {
             abilities += abilitiesArray[i].ability.name;
-
-            if(i < abilitiesArray.length -1) {
+            if (i < abilitiesArray.length - 1) {
                 abilities += ", ";
             }
         }
         return abilities;
     }
-
-    //dynamische Klasse
-    let typeClass = pokemonJson.types[0].type.name;
-
-    content.innerHTML += `<div class="pokemon-card ${typeClass} "
-    onclick="openOverlay('${pokemonJson.sprites.front_default}', '${pokemon.name}', '${types}', ${i})">
-     
-     <img src="${pokemonJson.sprites.front_default}" alt="${pokemon.name}">
-    <h2 >${pokemon.name.toUpperCase()}</h2>
-    <h3>${types}</h3>
-     </div>`
- }
 }
+
 
 
 //Das Overlay wird verwendet
