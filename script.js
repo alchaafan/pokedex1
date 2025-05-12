@@ -176,10 +176,16 @@ for (let i=0;  i < pokemonCards.length; i++) {
     }
 }
 
+
+//fügt den Text kein Pokemon gefunden ein
 if(found ===0) {
     noResults.classList.remove('hide')
 } else {
     noResults.classList.add('hide')
 }
+
+//mehr laden wird deaktiviert wenn kein Ergebniss gefunden wird
+document.getElementById('loadMoreBtn').disabled = (found ==0);
+document.getElementById('loadMoreBtn').style.opacity = found ==0 ? "0.5": "1";
 });
 

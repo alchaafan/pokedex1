@@ -16,6 +16,12 @@ body {
     background-image: url(./img/hintergrund.png);
     background-position: center;
     background-repeat: no-repeat;
+    @media(max-width:666px) {
+      
+    background-size: contain;
+  
+    }
+    
 }
 
 
@@ -163,6 +169,7 @@ footer {
 
 #prevBtn, #nextBtn {
     padding: 16px;
+    cursor: pointer;
 }
 
 
