@@ -113,16 +113,20 @@ function closeOverlay() {
 function prevPokemon() {
     if(currentIndex > 0) {
         currentIndex--;
-        updateOverlay();
+    } else {
+        currentIndex = pokemonList.length -1;
     }
+    updateOverlay();
 }
 
 
 function nextPokemon() {
     if (currentIndex < pokemonList.length -1) {
         currentIndex++;
-        updateOverlay();
+    } else {
+        currentIndex = 0;
     }
+    updateOverlay();
 }
 
 
