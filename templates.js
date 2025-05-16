@@ -27,7 +27,7 @@ function generateOverlayContentTabs(pokemon) {
      <div class="pDiv"> <p class="pTab">Weight:</p><p class="pDetails">${pokemon.weight}</p></div>
      <div class="pDiv"> <p class="pTab">Base Experience:</p><p class="pDetails">${pokemon.base_experience}</p></div>
     <div class="pDiv" id="abid">  <p class="pTab">Abilities:</p><p class="pDetails">${pokemon.abilities}</p></div>
-     
+    
       
     </div>
 
@@ -35,8 +35,18 @@ function generateOverlayContentTabs(pokemon) {
       ${generateStatsHTML(pokemon.stats)}
     </div>
 
+ 
     <div class="tab-content hide" id="tab-flavor">
       <p id="flavor-text">Wird geladen...</p>
+    </div>
+       <div id="navDiv">
+     <button id="prevBtn" onclick="prevPokemon()"><</button>
+        <button id="nextBtn" onclick="nextPokemon()">></button>
+</div>
+
+          
+      </div>
+      
     </div>
   `;
 }
